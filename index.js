@@ -68,6 +68,7 @@ server.post('/api/users', (req, res) => {
     }));
     
 })
+
 //update user in db
 server.put('/api/users/:id', (req, res) => {
     const id = req.params.id;
@@ -78,7 +79,7 @@ server.put('/api/users/:id', (req, res) => {
                 db.findById(id)
                     .then(user_change => {
                         res.status(201).json(user_change);
-                        console.log('Item Updated');
+                        console.log('User Updated');
                     })  
             }
             else {
@@ -97,7 +98,7 @@ server.delete('/api/users/:id', (req, res) => {
     db.remove(id)
         .then(user => {
             if (user) {
-                res.json('user deleted');
+                res.status(200).json('user deleted');
             }
             else {
                 res.status(404).json({ message: 'The user could not be found' })
