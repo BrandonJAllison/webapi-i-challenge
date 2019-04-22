@@ -1,13 +1,13 @@
 // implement your API here
 const express = require('express');
-
+const cors = require('cors')
 
 const db = require('./data/db.js');
 
 const server = express();
 
 server.use(express.json());
-server.use(cors())
+server.use(cors({origin: 'http://localhost:3000'}));
 
 
 server.get('/', (req, res) => {
@@ -68,7 +68,7 @@ server.post('/api/users', (req, res) => {
     }));
     
 })
-
+//update user in db
 server.put('/api/users/:id', (req, res) => {
     const id = req.params.id;
     const newUser = req.body;
@@ -76,8 +76,8 @@ server.put('/api/users/:id', (req, res) => {
         .then(user => {
             if (user) {
                 db.findById(id)
-                    .then(foo => {
-                        res.status(201).json(foo);
+                    .then(user_change => {
+                        res.status(201).json(user_change);
                         console.log('Item Updated');
                     })  
             }
